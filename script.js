@@ -1,5 +1,6 @@
-const harryPotter1 = new makeBook("Harry Potter and the Philosopher's Stone", "J.K. Rowling", "400","Yes");
-console.log(harryPotter1.info());
+// const harryPotter1 = new makeBook("Harry Potter and the Philosopher's Stone", "J.K. Rowling", "400","Yes");
+// console.log(harryPotter1.info());
+
 let myLibrary = [];
 document.getElementById("deleteBtn").onclick = function(){deleteBook(this)};
 
@@ -7,16 +8,16 @@ function myFunction() {
   document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
 }
 
-function makeBook(title, author, pages, readedBook){
+function makeBook(title, author, pages, readBook){
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.readedBook = readedBook;
+    this.readBook = readBook;
     this.info = function (){
         return (title + " by " + author + ", " + 
-        pages + " pages, " + readedBook);
+        pages + " pages, " + readBook);
     }
-} 
+}
 
 function newBook() {
 
@@ -25,57 +26,71 @@ function newBook() {
     book.style.visibility = "visible"
     return;
   }
-  
-  if(myLibrary.length !== 0 && document.getElementById("name").value !== "")
-  {
-    const books = document.querySelector('#books');
-    const clone = books.cloneNode(true);
-    clone.id = 'book';
-    books.after(clone);
-    document.getElementById("name").value = "";
-    document.getElementById("author").value = "";
-    document.getElementById("pages").value = "";
-    document.querySelector("#readed").checked = false;
-    document.getElementById("name").disabled = false;
-    document.getElementById("author").disabled = false;
-    document.getElementById("pages").disabled = false;
-    document.querySelector("#readed").disabled = false;
-    document.getElementById("saveBtn").disabled = false;
-    document.getElementById("saveBtn").textContent = "Save";
-    document.getElementById("deleteBtn").style.visibility = "hidden";
-  } 
+}
+
+function createBookElement(name) {
+  const booksContainer = document.getElementById('books');
+  const bookElement = document.getElementById('book');
+  const clone = bookElement.cloneNode(true);
+  clone.id = name;
+
+  clone.querySelector("#name").disabled = true;
+  clone.querySelector("#author").disabled = true;
+  clone.querySelector("#pages").disabled = true;
+  clone.querySelector("#read").disabled = true;
+  clone.querySelector("#saveBtn").disabled = true;
+  clone.querySelector("#saveBtn").textContent = "Saved";
+  clone.querySelector("#deleteBtn").onclick = () => {
+    if(confirm(`Seguro que quieres borrar ${name}?`)) {
+        const bookToDelete = document.getElementById(name);
+        booksContainer.removeChild(bookToDelete);
+        // quitarlo de mylibrary
+     }
+  }
+  clone.querySelector("#deleteBtn").style.visibility = "visible";
+
+  booksContainer.appendChild(clone);
 }
 
 function saveValues(){
   const title = document.getElementById("name").value;
-  if (isEmpty(title) === true)
-  {
-    alert("Book name cannot be empty")
-    return;
-  }
+  // if (isEmpty(title) === true)
+  // {
+  //   alert("Book name cannot be empty")
+  //   return;
+  // }
   const author = document.getElementById("author").value;
-  if (isEmpty(author) === true)
-  {
-    alert("Author name cannot be empty")
-    return;
-  }
+  // if (isEmpty(author) === true)
+  // {
+  //   alert("Author name cannot be empty")
+  //   return;
+  // }
   const pages = document.getElementById("pages").value;
-  if (isEmpty(pages) === true)
-  {
-    alert("A book without pages?")
-    return;
-  }
-  const readed = document.querySelector("#readed").checked;
+  // if (isEmpty(pages) === true)
+  // {
+  //   alert("A book without pages?")
+  //   return;
+  // }
+  const read = document.getElementById("read").checked;
   
-  const book = new makeBook(title,author,pages,readed);
-  myLibrary.push(book); 
-  document.getElementById("name").disabled = true;
-  document.getElementById("author").disabled = true;
-  document.getElementById("pages").disabled = true;
-  document.querySelector("#readed").disabled = true;
-  document.getElementById("saveBtn").disabled = true;
-  document.getElementById("saveBtn").textContent = "Saved";
-  document.getElementById("deleteBtn").style.visibility = "visible";
+  const newBook = new makeBook(title,author,pages,read);
+  myLibrary.push(newBook);
+  // hacer un nuevo libro con id, y agregarle cosas
+  createBookElement(title);
+
+  const book = document.getElementById("book");
+
+  book.querySelector("#name").value = "";
+  book.querySelector("#author").value = "";
+  book.querySelector("#pages").value = "";
+  book.querySelector("#read").checked = false;
+  book.querySelector("#name").disabled = false;
+  book.querySelector("#author").disabled = false;
+  book.querySelector("#pages").disabled = false;
+  book.querySelector("#read").disabled = false;
+  book.querySelector("#saveBtn").disabled = false;
+  book.querySelector("#saveBtn").textContent = "Save";
+  book.querySelector("#deleteBtn").style.visibility = "hidden";
 }
 
 function isEmpty(str) {
