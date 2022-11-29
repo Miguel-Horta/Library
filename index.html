@@ -13,23 +13,21 @@
     <h1>My Library</h1>
     <button type="button" class="signIn">Sign In</button>
   </header>
-  <div class="main">
+  <div class="main" id="books">
     <button type="button" class="addBook" onclick="newBook()">+</button>
-    <div class="books" id="books">
-
-      <div class="book" id="book">
-        <label for="name">Book Name:</label>
-        <textarea id="name" name="name" cols="40" rows="3"></textarea>
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author">
-        <label for="pages">Number of pages:</label>
-        <input type="number" id="pages" name="pages" placeholder="0">
-        <label for="read">Have you read it?</label>
-        <input type="checkbox" id="read" name="read">
-        <button type="button" id="saveBtn" onclick="saveValues()">Save</button>
-        <button type="button" id="deleteBtn">Delete</button>
-      </div>
+    <div class="book" id="book">
+      <label for="name">Book Name:</label>
+      <textarea id="name" name="name" cols="40" rows="3"></textarea>
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author">
+      <label for="pages">Number of pages:</label>
+      <input type="number" id="pages" name="pages" placeholder="0">
+      <label for="read">Have you read it?</label>
+      <input type="checkbox" id="read" name="read">
+      <button type="button" id="saveBtn" onclick="saveValues()">Save</button>
+      <button type="button" id="deleteBtn">Delete</button>
     </div>
+  </div>
   <footer>
     Copyright ©
     <script>

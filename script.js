@@ -1,12 +1,4 @@
-// const harryPotter1 = new makeBook("Harry Potter and the Philosopher's Stone", "J.K. Rowling", "400","Yes");
-// console.log(harryPotter1.info());
-
 let myLibrary = [];
-document.getElementById("deleteBtn").onclick = function(){deleteBook(this)};
-
-function myFunction() {
-  document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
-}
 
 function makeBook(title, author, pages, readBook){
     this.title = title;
@@ -33,7 +25,6 @@ function createBookElement(name) {
   const bookElement = document.getElementById('book');
   const clone = bookElement.cloneNode(true);
   clone.id = name;
-
   clone.querySelector("#name").disabled = true;
   clone.querySelector("#author").disabled = true;
   clone.querySelector("#pages").disabled = true;
@@ -48,29 +39,28 @@ function createBookElement(name) {
      }
   }
   clone.querySelector("#deleteBtn").style.visibility = "visible";
-
   booksContainer.appendChild(clone);
 }
 
 function saveValues(){
   const title = document.getElementById("name").value;
-  // if (isEmpty(title) === true)
-  // {
-  //   alert("Book name cannot be empty")
-  //   return;
-  // }
+   if (isEmpty(title) === true)
+   {
+     alert("Book name cannot be empty")
+     return;
+   }
   const author = document.getElementById("author").value;
-  // if (isEmpty(author) === true)
-  // {
-  //   alert("Author name cannot be empty")
-  //   return;
-  // }
+   if (isEmpty(author) === true)
+   {
+     alert("Author name cannot be empty")
+     return;
+   }
   const pages = document.getElementById("pages").value;
-  // if (isEmpty(pages) === true)
-  // {
-  //   alert("A book without pages?")
-  //   return;
-  // }
+   if (isEmpty(pages) === true)
+   {
+     alert("A book without pages?")
+     return;
+   }
   const read = document.getElementById("read").checked;
   
   const newBook = new makeBook(title,author,pages,read);
